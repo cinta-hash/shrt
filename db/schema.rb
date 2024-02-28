@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_28_042428) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_28_051717) do
+  create_table "links", force: :cascade do |t|
+    t.string "short_url"
+    t.text "long_url"
+    t.string "custom_url"
+    t.integer "clicks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
