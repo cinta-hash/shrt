@@ -3,7 +3,9 @@
   <head>
     <title>Shrt</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
     <%= csrf_meta_tags %>
+    <%= pwa_manifest_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
@@ -11,10 +13,34 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-no-repeat bg-pack bg-cover bg-fixed bg-center bg-black bg-opacity-10 backdrop-blur-md">
     <main class="container mx-auto mt-28 px-5 flex flex-col">
     <%= render 'layouts/navbar' %>
       <%= yield %>
     </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        link.setAttribute('target', '_blank');
+      });
+    });
+  </script>
+
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
+
   </body>
 </html>
